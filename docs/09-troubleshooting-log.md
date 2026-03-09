@@ -26,17 +26,17 @@ IOS-XE 16.9.6 still offered legacy key exchange and RSA host key behavior blocke
 
 Temporary working command:
 
-
+```bash id="9t3m6k"
 ssh -oKexAlgorithms=+diffie-hellman-group14-sha1 \
 -oHostKeyAlgorithms=+ssh-rsa \
 -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@192.168.50.1
-
+```
 
 Permanent fix added to:
 
-
+```bash id="4k8r1n"
 ~/.ssh/config
-
+```
 
 ---
 
@@ -58,9 +58,9 @@ Command executed outside project working directory.
 
 Moved into project folder:
 
-
+```bash id="3j5n7w"
 cd ~/ansible-lab
-
+```
 
 ---
 
@@ -70,9 +70,9 @@ cd ~/ansible-lab
 
 Copied IOS image appeared incorrectly as:
 
-
+```text id="6m2p4x"
 bootflash:y
-
+```
 
 ---
 
@@ -86,9 +86,9 @@ Filename handling during USB copy did not preserve full image name.
 
 Verified file integrity and renamed:
 
-
+```text id="7p9t1v"
 rename bootflash:y bootflash:isr4300-universalk9.16.09.06.SPA.bin
-
+```
 
 ---
 
@@ -104,15 +104,15 @@ NETCONF enablement alone did not guarantee transport readiness.
 
 Port verified:
 
-
+```text id="1x6w8m"
 show tcp brief all | include 830
-
+```
 
 Expected result:
 
-
+```text id="5q3k2z"
 0.0.0.0.830 LISTEN
-
+```
 
 ---
 
@@ -122,9 +122,9 @@ Expected result:
 
 Ansible reported transport fallback:
 
-
+```text id="2r7f9b"
 ansible-pylibssh not installed, falling back to paramiko
-
+```
 
 ---
 
