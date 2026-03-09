@@ -18,8 +18,8 @@ Playbooks create repeatable automation workflows that can be expanded safely.
 
 A basic playbook was created to execute operational show commands.
 
-
-
+```yaml id="8d4p7x"
+---
 - name: Sample IOS playbook to run show commands
   hosts: R1
   gather_facts: no
@@ -34,15 +34,15 @@ A basic playbook was created to execute operational show commands.
     - name: display value of myinterfaces variable
       debug:
         var: myinterfaces["stdout_lines"][0]
-
+```
 
 ---
 
 ## Execution Command
 
-
+```bash id="4v1r8w"
 ansible-playbook -i inventory.yml 02-ios_show_commands.yaml
-
+```
 
 ---
 
@@ -62,9 +62,9 @@ Validated:
 
 The command result was stored in:
 
-
+```text id="6n3m5k"
 myinterfaces
-
+```
 
 This allowed later tasks to reference returned data.
 
@@ -72,9 +72,9 @@ This allowed later tasks to reference returned data.
 
 ## Example Output Use
 
-
+```text id="5k2r1z"
 myinterfaces["stdout_lines"][0]
-
+```
 
 This displayed interface output line-by-line.
 
