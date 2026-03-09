@@ -27,15 +27,15 @@ Two model families were examined:
 
 Primary model observed in returned XML:
 
-
+```text id="j7m4v3"
 Cisco-IOS-XE-native
-
+```
 
 Typical XML namespace:
 
-
+```xml id="n1r8q2"
 xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"
-
+```
 
 ---
 
@@ -43,7 +43,9 @@ xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"
 
 Standard model examined:
 
+```text id="g5u2w9"
 ietf-interfaces.yang
+```
 
 ---
 
@@ -53,9 +55,9 @@ The Ubuntu controller used `pyang` to inspect YANG structure.
 
 Command:
 
-
+```bash id="r2f7y6"
 pyang -f tree ietf-interfaces.yang
-
+```
 
 ---
 
@@ -73,12 +75,13 @@ This made it easier to identify:
 
 ## Example Hierarchy Observed
 
-
+```text id="u8w1m5"
 +--rw interfaces
    +--rw interface* [name]
       +--rw name
       +--rw description
       +--rw enabled
+```
 
 ---
 
