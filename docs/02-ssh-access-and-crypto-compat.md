@@ -18,12 +18,14 @@ Initial connection attempts failed because modern OpenSSH disables several legac
 
 SSH had already been enabled during baseline device preparation:
 
+```text id="v7c0g7"
 ip domain-name lab.local
 crypto key generate rsa
 username admin secret <redacted>
 line vty 0 4
  login local
  transport input ssh
+```
 
 ---
 
@@ -42,11 +44,11 @@ Typical failure involved:
 
 SSH succeeded after explicitly allowing older algorithms:
 
-
+```bash id="lzqu2o"
 ssh -oKexAlgorithms=+diffie-hellman-group14-sha1 \
 -oHostKeyAlgorithms=+ssh-rsa \
 -oPubkeyAcceptedAlgorithms=+ssh-rsa admin@192.168.50.1
-
+```
 
 ---
 
@@ -71,6 +73,7 @@ Successful login confirmed:
 ## Engineering Meaning
 
 This step established the first remote management path required before Ansible inventory testing could begin.
+
 ---
 
 ## Permanent SSH Client Fix
@@ -79,16 +82,18 @@ To avoid entering the full compatibility command repeatedly, an SSH client confi
 
 File used:
 
+```bash id="5fdm4s"
 ~/.ssh/config
+```
 
 Configuration added:
 
-
+```text id="mrgd9m"
 Host 192.168.50.1
     KexAlgorithms +diffie-hellman-group14-sha1
     HostKeyAlgorithms +ssh-rsa
     PubkeyAcceptedAlgorithms +ssh-rsa
-
+```
 
 ---
 
@@ -96,9 +101,9 @@ Host 192.168.50.1
 
 After this change, normal SSH worked:
 
-
+```bash id="op8r5v"
 ssh admin@192.168.50.1
-
+```
 
 without needing the full compatibility options each time.
 
@@ -107,4 +112,6 @@ without needing the full compatibility options each time.
 ## Why This Was Better
 
 This moved the compatibility fix into controller configuration rather than repeating manual command-line overrides.
+
+
 
