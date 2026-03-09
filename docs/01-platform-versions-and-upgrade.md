@@ -1,3 +1,4 @@
+
 # Platform Versions and Upgrade
 
 ## Objective
@@ -18,11 +19,15 @@ IOS-XE 16.3.6
 
 Validated with:
 
+```text
 show version
+```
 
 The router initially booted from:
 
+```text
 bootflash:isr4300-universalk9.16.03.06.SPA.bin
+```
 
 ---
 
@@ -32,7 +37,9 @@ IOS-XE 16.9.6
 
 Image used:
 
+```text
 isr4300-universalk9.16.09.06.SPA.bin
+```
 
 ---
 
@@ -46,14 +53,17 @@ Upgrade performed from USB flash drive.
 
 ### Verify available flash space
 
+```text
 dir bootflash:
-
+```
 
 Confirmed sufficient free space before copying image. 
 
 ### Verify USB image present
 
+```text
 dir usb0:
+```
 
 Confirmed router could read USB image before copy. 
 
@@ -63,8 +73,9 @@ Confirmed router could read USB image before copy.
 
 Image copied from USB into bootflash:
 
+```text
 copy usb0:isr4300-universalk9.16.09.06.SPA.bin bootflash:
-
+```
 
 Copy completed successfully. 
 
@@ -74,14 +85,16 @@ Copy completed successfully.
 
 Bootflash checked for new image:
 
-
+```text
 dir bootflash: | include 16.09
-
+```
 
 MD5 verification performed:
 
-
+```text
 verify /md5 bootflash:isr4300-universalk9.16.09.06.SPA.bin
+```
+
 
 
 ---
@@ -90,12 +103,16 @@ verify /md5 bootflash:isr4300-universalk9.16.09.06.SPA.bin
 
 During copy, the image initially appeared in bootflash with incorrect filename:
 
+```text
 bootflash:y
+```
 
 The file verified successfully, so it was renamed rather than copied again:
 
-
+```text
 rename bootflash:y bootflash:isr4300-universalk9.16.09.06.SPA.bin
+```
+
 
 
 ---
@@ -104,20 +121,25 @@ rename bootflash:y bootflash:isr4300-universalk9.16.09.06.SPA.bin
 
 Existing boot statement cleared:
 
+```text
 conf t
 no boot system
+```
 
 New boot image set:
 
-
+```text
 boot system bootflash:isr4300-universalk9.16.09.06.SPA.bin
-
+```
 
 Saved configuration:
 
-
+```text
 end
 write memory
+```
+
+
 
 ---
 
@@ -125,9 +147,9 @@ write memory
 
 Before reload:
 
-
+```text
 show boot
-
+```
 
 Confirmed boot variable pointed to 16.9.6 image. 
 
@@ -137,7 +159,9 @@ Confirmed boot variable pointed to 16.9.6 image.
 
 Router reloaded:
 
+```text
 reload
+```
 
 ---
 
@@ -145,9 +169,9 @@ reload
 
 After reboot:
 
-
+```text
 show version
-
+```
 
 Confirmed:
 
@@ -163,28 +187,33 @@ Confirmed:
 
 After upgrade:
 
-
+```text
 show platform software yang-management process
+```
 
 Confirmed YANG processes active. 
 
 NETCONF enabled:
 
+```text
 conf t
 netconf-yang
 end
 write memory
+```
 
 Port 830 verified:
 
-
+```text
 show tcp brief all | include 830
-
+```
 
 Expected result:
 
-
+```text
 0.0.0.0.830 LISTEN
+```
+
 
 
 ---
