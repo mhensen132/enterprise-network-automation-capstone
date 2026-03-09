@@ -20,7 +20,8 @@ This allows predictable automation and data parsing.
 
 Playbook used:
 
-
+```yaml id="7u3zv1"
+---
 - name: Retrieve interface data using NETCONF
   hosts: R1
   connection: netconf
@@ -35,7 +36,7 @@ Playbook used:
     - name: Display result
       debug:
         var: interfaces
-
+```
 
 ---
 
@@ -43,7 +44,7 @@ Playbook used:
 
 Inventory required NETCONF transport:
 
-
+```yaml id="9q4xw6"
 all:
   hosts:
     R1:
@@ -52,7 +53,7 @@ all:
       ansible_password: <redacted>
       ansible_connection: netconf
       ansible_network_os: ios
-
+```
 
 ---
 
@@ -60,8 +61,9 @@ all:
 
 Command used:
 
+```bash id="w2f0g8"
 ansible-playbook -i inventory.yml netconf-get.yml
-
+```
 
 ---
 
@@ -83,13 +85,13 @@ Returned data included XML representing running configuration content.
 
 Typical returned structure:
 
-
+```xml id="4m1jv9"
 <data>
   <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
     ...
   </native>
 </data>
-
+```
 
 ---
 
