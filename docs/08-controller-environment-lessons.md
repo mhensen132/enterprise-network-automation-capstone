@@ -20,9 +20,9 @@ A Python virtual environment was used to isolate automation tools.
 
 Activation command:
 
-
+```bash id="2x5m8k"
 source venv/bin/activate
-
+```
 
 ---
 
@@ -36,11 +36,11 @@ This prevented package conflicts between system Python and automation libraries.
 
 Installed tools included:
 
-
+```bash id="7w2r4f"
 pip install ansible
 pip install ncclient
 pip install pyang
-
+```
 
 ---
 
@@ -48,10 +48,10 @@ pip install pyang
 
 Cisco automation collections required:
 
-
+```bash id="6u1p9n"
 ansible-galaxy collection install cisco.ios
 ansible-galaxy collection install ansible.netcommon
-
+```
 
 ---
 
@@ -59,8 +59,9 @@ ansible-galaxy collection install ansible.netcommon
 
 Compatibility settings were moved into:
 
-
+```bash id="5f1q7v"
 ~/.ssh/config
+```
 
 This avoided repeating legacy crypto options manually.
 
@@ -72,8 +73,9 @@ Ansible execution failed when launched outside the project folder.
 
 Correct working directory:
 
-
+```bash id="4j9t2w"
 cd ~/ansible-lab
+```
 
 ---
 
@@ -81,9 +83,9 @@ cd ~/ansible-lab
 
 Ansible reported:
 
-
+```text id="1m8n6z"
 ansible-pylibssh not installed, falling back to paramiko
-
+```
 
 Execution still succeeded.
 
