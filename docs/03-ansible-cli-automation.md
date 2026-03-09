@@ -10,10 +10,10 @@ Validate that the Ubuntu automation controller could execute Cisco IOS-XE comman
 
 Cisco collections installed on the controller:
 
-
+```bash id="w8oyj5"
 ansible-galaxy collection install cisco.ios
 ansible-galaxy collection install ansible.netcommon
-
+```
 
 ---
 
@@ -21,7 +21,7 @@ ansible-galaxy collection install ansible.netcommon
 
 Inventory used for CLI testing:
 
-
+```yaml id="3n11n0"
 all:
   hosts:
     R1:
@@ -30,7 +30,7 @@ all:
       ansible_password: <redacted>
       ansible_network_os: ios
       ansible_connection: network_cli
-
+```
 
 ---
 
@@ -44,9 +44,9 @@ Inventory could not be parsed correctly until the controller was moved into the 
 
 ## Working Directory Correction
 
-
+```bash id="7w4oqh"
 cd ~/ansible-lab
-
+```
 
 ---
 
@@ -54,16 +54,17 @@ cd ~/ansible-lab
 
 Basic Ansible reachability test:
 
-
+```bash id="m1l8si"
 ansible R1 -i inventory.yml -m ping
+```
 
 ---
 
 ## Result
 
-
+```text id="b1c4f1"
 SUCCESS => "ping": "pong"
-
+```
 
 ---
 
@@ -71,9 +72,9 @@ SUCCESS => "ping": "pong"
 
 Command used:
 
-
+```bash id="0h7n5x"
 ansible R1 -i inventory.yml -m cisco.ios.ios_command -a "commands='show version'"
-
+```
 
 ---
 
@@ -94,8 +95,9 @@ Validated:
 
 Ansible reported:
 
+```text id="kq6i8m"
 ansible-pylibssh not installed, falling back to paramiko
-
+```
 
 This did not prevent successful execution.
 
