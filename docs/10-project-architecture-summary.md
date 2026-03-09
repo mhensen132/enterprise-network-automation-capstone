@@ -24,9 +24,9 @@ Summarize the full technical architecture used to establish model-driven automat
 
 Traffic path used during project:
 
-
+```text id="6j4m8p"
 Ubuntu Controller → Switch → Router
-
+```
 
 ---
 
@@ -54,9 +54,9 @@ Ansible CLI modules executed operational commands.
 
 Example:
 
-
+```text id="2f9w3q"
 cisco.ios.ios_command
-
+```
 
 ---
 
@@ -97,7 +97,7 @@ Router provided:
 
 ## Project Flow
 
-
+```text id="5t8x1r"
 Platform upgrade
 → baseline config
 → management validation
@@ -106,7 +106,7 @@ Platform upgrade
 → NETCONF
 → YANG exploration
 → playbook automation
-
+```
 
 ---
 
