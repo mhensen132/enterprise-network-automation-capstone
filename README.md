@@ -35,11 +35,9 @@ The long-term objective is to build a repeatable enterprise management architect
 
 ---
 
-<h2>Current Enterprise Automation Architecture</h2>
+## Current Enterprise Automation Architecture
 
-<p align="center">
-  <img src="diagrams/enterprise-automation-topology.png" width="900">
-</p>
+![Enterprise Automation Architecture](diagrams/enterprise-automation-topology.png)
 
 ---
 
