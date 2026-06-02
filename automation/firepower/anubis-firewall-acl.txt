@@ -1,0 +1,95 @@
+configure terminal
+
+!
+! =========================================================
+! OBJECTS - ANSIBLE SOURCE
+! =========================================================
+!
+object network ANSIBLE-STATION
+ host 10.104.104.5
+
+!
+! =========================================================
+! OBJECTS - REAL INSIDE DEVICE ADDRESSES
+! =========================================================
+!
+object network A-R1-REAL
+ host 172.16.100.2
+
+object network A-R2-REAL
+ host 172.16.100.18
+
+object network A-SW1-REAL
+ host 172.16.100.132
+
+object network A-SW2-REAL
+ host 172.16.100.133
+
+!
+! =========================================================
+! OBJECTS - OUTSIDE TRANSLATED ADDRESSES
+! =========================================================
+!
+object network A-R1-PUBLIC
+ host 10.104.104.14
+
+object network A-R2-PUBLIC
+ host 10.104.104.15
+
+object network A-SW1-PUBLIC
+ host 10.104.104.16
+
+object network A-SW2-PUBLIC
+ host 10.104.104.17
+
+!
+! =========================================================
+! MANUAL STATIC NAT RULES
+! outside IP -> real inside device
+! =========================================================
+!
+nat (inside1,outside) source static A-R1-REAL A-R1-PUBLIC
+
+nat (inside2,outside) source static A-R2-REAL A-R2-PUBLIC
+
+nat (inside1,outside) source static A-SW1-REAL A-SW1-PUBLIC
+
+nat (inside1,outside) source static A-SW2-REAL A-SW2-PUBLIC
+
+!
+! =========================================================
+! OUTSIDE-IN ACL - SSH ACCESS FOR ANSIBLE
+! =========================================================
+!
+access-list OUTSIDE-IN extended permit tcp object ANSIBLE-STATION host 10.104.104.14 eq 22
+access-list OUTSIDE-IN extended permit tcp object ANSIBLE-STATION host 10.104.104.15 eq 22
+access-list OUTSIDE-IN extended permit tcp object ANSIBLE-STATION host 10.104.104.16 eq 22
+access-list OUTSIDE-IN extended permit tcp object ANSIBLE-STATION host 10.104.104.17 eq 22
+
+!
+! =========================================================
+! OUTSIDE-IN ACL - NETCONF ACCESS FOR ROUTERS ONLY
+! =========================================================
+!
+access-list OUTSIDE-IN extended permit tcp object ANSIBLE-STATION host 10.104.104.14 eq 830
+access-list OUTSIDE-IN extended permit tcp object ANSIBLE-STATION host 10.104.104.15 eq 830
+
+!
+! =========================================================
+! OUTSIDE-IN ACL - ICMP FOR TESTING
+! =========================================================
+!
+access-list OUTSIDE-IN extended permit icmp object ANSIBLE-STATION host 10.104.104.14
+access-list OUTSIDE-IN extended permit icmp object ANSIBLE-STATION host 10.104.104.15
+access-list OUTSIDE-IN extended permit icmp object ANSIBLE-STATION host 10.104.104.16
+access-list OUTSIDE-IN extended permit icmp object ANSIBLE-STATION host 10.104.104.17
+
+!
+! =========================================================
+! APPLY ACL TO OUTSIDE INTERFACE
+! =========================================================
+!
+access-group OUTSIDE-IN in interface outside
+
+end
+write memory
