@@ -1,0 +1,15 @@
+---
+- name: Collect router state with NETCONF
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+    - name: Get running config/state over NETCONF
+      ansible.netcommon.netconf_get:
+        source: running
+      register: netconf_data
+
+    - name: Save NETCONF output to file
+      ansible.builtin.copy:
+        content: "{{ netconf_data.output | string }}"
+        dest: "outputs/{{ inventory_hostname }}-netconf-running.xml"

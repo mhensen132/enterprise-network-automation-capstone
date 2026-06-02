@@ -1,0 +1,89 @@
+---
+- name: Deploy syslog01 on KVM host
+  hosts: kvm_hosts
+  become: true
+  gather_facts: true
+
+  vars:
+    vm_name: syslog01
+    vm_memory_mb: 2048
+    vm_cpus: 2
+    vm_disk_size_gb: 20
+    vm_network: default
+    vm_pool_dir: /var/lib/libvirt/images/pool
+    ubuntu_image: /var/lib/libvirt/images/pool/jammy-server-cloudimg-amd64.img
+    ubuntu_image_url: https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+    ssh_public_key: "{{ lookup('file', '/home/ansible/.ssh/id_ed25519.pub') }}"
+
+  tasks:
+    - name: Ensure VM image directory exists
+      ansible.builtin.file:
+        path: "{{ vm_pool_dir }}"
+        state: directory
+        mode: "0755"
+
+    - name: Download Ubuntu cloud image if missing
+      ansible.builtin.get_url:
+        url: "{{ ubuntu_image_url }}"
+        dest: "{{ ubuntu_image }}"
+        mode: "0644"
+
+    - name: Create syslog01 disk
+      ansible.builtin.command: >
+        qemu-img create -f qcow2 -b {{ ubuntu_image }} -F qcow2
+        {{ vm_pool_dir }}/{{ vm_name }}.qcow2 {{ vm_disk_size_gb }}G
+      args:
+        creates: "{{ vm_pool_dir }}/{{ vm_name }}.qcow2"
+
+    - name: Create cloud-init user-data
+      ansible.builtin.copy:
+        dest: "/tmp/{{ vm_name }}-user-data"
+        content: |
+          #cloud-config
+          hostname: {{ vm_name }}
+          users:
+            - name: ubuntu
+              sudo: ALL=(ALL) NOPASSWD:ALL
+              groups: sudo
+              shell: /bin/bash
+              ssh_authorized_keys: 
+                - {{ ssh_public_key }}
+          package_update: true
+          packages:
+            - qemu-guest-agent
+            - rsyslog
+          runcmd:
+            - systemctl enable rsyslog
+            - systemctl start rsyslog
+
+    - name: Create cloud-init meta-data
+      ansible.builtin.copy:
+        dest: "/tmp/{{ vm_name }}-meta-data"
+        content: |
+          instance-id: {{ vm_name }}
+          local-hostname: {{ vm_name }}
+
+    - name: Build seed ISO
+      ansible.builtin.command: >
+        cloud-localds {{ vm_pool_dir }}/{{ vm_name }}-seed.iso
+        /tmp/{{ vm_name }}-user-data
+        /tmp/{{ vm_name }}-meta-data
+      args:
+        creates: "{{ vm_pool_dir }}/{{ vm_name }}-seed.iso"
+
+    - name: Define and start syslog01
+      ansible.builtin.command: >
+        virt-install
+        --name {{ vm_name }}
+        --memory {{ vm_memory_mb }}
+        --vcpus {{ vm_cpus }}
+        --disk path={{ vm_pool_dir }}/{{ vm_name }}.qcow2,format=qcow2
+        --disk path={{ vm_pool_dir }}/{{ vm_name }}-seed.iso,device=cdrom
+        --os-variant ubuntu22.04
+        --network network={{ vm_network }}
+        --graphics none
+        --console pty,target_type=serial
+        --import
+        --noautoconsole
+      args:
+        creates: "/etc/libvirt/qemu/{{ vm_name }}.xml"

@@ -1,0 +1,15 @@
+---
+- name: Retrieve interface data using NETCONF
+  hosts: MG-R2
+  connection: netconf
+  gather_facts: no
+
+  tasks:
+    - name: Get interface information
+      ansible.netcommon.netconf_get:
+        source: running
+      register: interfaces
+
+    - name: Display result
+      debug:
+        var: interfaces

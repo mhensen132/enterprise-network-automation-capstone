@@ -1,0 +1,26 @@
+---
+- name: Configure syslog01 as centralized log server
+  hosts: logging
+  become: true
+
+  tasks:
+
+    - name: Enable UDP syslog reception
+      ansible.builtin.lineinfile:
+        path: /etc/rsyslog.conf
+        line: "{{ item }}"
+        insertafter: EOF
+      loop:
+        - 'module(load="imudp")'
+        - 'input(type="imudp" port="514")'
+
+    - name: Enable TCP syslog reception
+      ansible.builtin.lineinfile:
+        path: /etc/rsyslog.conf
+        line: "{{ item }}"
+        insertafter: EOF
+      loop:
+        - 'module(load="imtcp")'
+        - 'input(type="imtcp" port="514")'
+
+    - name: Restart rsyslog

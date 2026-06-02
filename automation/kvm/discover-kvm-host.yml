@@ -1,0 +1,47 @@
+---
+- name: Discover KVM/libvirt host
+  hosts: kvm_hosts
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: List all VMs
+      ansible.builtin.command: virsh list --all
+      register: vm_list
+
+    - name: List libvirt networks
+      ansible.builtin.command: virsh net-list --all
+      register: net_list
+
+    - name: List storage pools
+      ansible.builtin.command: virsh pool-list --all
+      register: pool_list
+
+    - name: Show disk usage
+      ansible.builtin.command: df -h
+      register: disk_usage
+
+    - name: Show IP addresses
+      ansible.builtin.command: hostname -I
+      register: host_ips
+
+    - name: Save discovery output locally
+      ansible.builtin.copy:
+        content: |
+          Host IPs:
+          {{ host_ips.stdout }}
+
+          VMs:
+          {{ vm_list.stdout }}
+
+          Libvirt Networks:
+          {{ net_list.stdout }}
+
+          Storage Pools:
+          {{ pool_list.stdout }}
+
+          Disk Usage:
+          {{ disk_usage.stdout }}
+        dest: "./ub1-kvm-discovery.txt"
+      delegate_to: localhost
+      become: false

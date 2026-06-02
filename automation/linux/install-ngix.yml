@@ -1,0 +1,21 @@
+---
+- name: Install nginx on all Ubuntu VMs
+  hosts: all
+  become: true
+
+  tasks:
+
+    - name: Update package cache
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Ensure nginx is running
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true

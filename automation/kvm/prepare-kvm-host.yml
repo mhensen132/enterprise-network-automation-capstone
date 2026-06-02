@@ -1,0 +1,25 @@
+---
+- name: Prepare KVM host for cloud-init VM automation
+  hosts: kvm_hosts
+  gather_facts: true
+  become: true
+
+  tasks:
+    - name: Install required KVM automation tools
+      ansible.builtin.apt:
+        name:
+          - cloud-image-utils
+          - virtinst
+          - qemu-utils
+          - libvirt-daemon-system
+          - python3-libvirt
+        state: present
+        update_cache: true
+
+    - name: Verify cloud-localds exists
+      ansible.builtin.command: which cloud-localds
+      register: cloud_localds
+
+    - name: Show cloud-localds path
+      ansible.builtin.debug:
+        var: cloud_localds.stdout

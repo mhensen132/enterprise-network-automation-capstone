@@ -1,0 +1,17 @@
+---
+- name: Forward logs from web servers to syslog01
+  hosts: webservers
+  become: true
+
+  tasks:
+
+    - name: Configure remote syslog target
+      ansible.builtin.copy:
+        dest: /etc/rsyslog.d/remote.conf
+        content: |
+          *.* @192.168.122.174:514
+
+    - name: Restart rsyslog
+      ansible.builtin.service:
+        name: rsyslog
+        state: restarted

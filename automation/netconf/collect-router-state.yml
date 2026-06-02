@@ -1,0 +1,23 @@
+---
+- name: Collect read-only router state
+  hosts: routers
+  gather_facts: false
+
+  tasks:
+    - name: Collect key show commands
+      cisco.ios.ios_command:
+        commands:
+          - show version
+          - show ip interface brief
+          - show running-config
+          - show ip route
+          - show standby brief
+          - show ip ospf neighbor
+          - show platform software yang-management process
+          - show netconf-yang statistics
+      register: router_output
+
+    - name: Save output to file
+      copy:
+        content: "{{ router_output.stdout | join('\n\n===== NEXT COMMAND =====\n\n') }}"
+        dest: "outputs/{{ inventory_hostname }}-state.txt"

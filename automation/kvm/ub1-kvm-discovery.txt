@@ -1,0 +1,34 @@
+Host IPs:
+10.102.1.4 172.17.0.1 192.168.122.1
+
+VMs:
+ Id   Name        State
+----------------------------
+ 1    win19-2     running
+ -    win2k22     shut off
+ -    win2k22-2   shut off
+
+Libvirt Networks:
+ Name      State    Autostart   Persistent
+--------------------------------------------
+ default   active   yes         yes
+
+Storage Pools:
+ Name      State    Autostart
+-------------------------------
+ default   active   yes
+ pool      active   yes
+
+Disk Usage:
+Filesystem                         Size  Used Avail Use% Mounted on
+tmpfs                              6.3G  2.6M  6.3G   1% /run
+efivarfs                           176K  101K   71K  59% /sys/firmware/efi/efivars
+/dev/mapper/ubuntu--vg-ubuntu--lv   98G   45G   49G  48% /
+tmpfs                               32G     0   32G   0% /dev/shm
+tmpfs                              5.0M     0  5.0M   0% /run/lock
+tmpfs                               32G     0   32G   0% /run/qemu
+/dev/sda2                          2.0G  214M  1.6G  12% /boot
+/dev/sda1                          1.1G  6.2M  1.1G   1% /boot/efi
+tmpfs                              6.3G  192K  6.3G   1% /run/user/1000
+tmpfs                              6.3G  132K  6.3G   1% /run/user/1003
+tmpfs                              6.3G  132K  6.3G   1% /run/user/1027

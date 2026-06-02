@@ -1,0 +1,17 @@
+all:
+  children:
+    routers:
+      hosts:
+        MG-R1:
+          ansible_host: 10.104.104.10
+        MG-R2:
+          ansible_host: 10.104.104.11
+      vars:
+        ansible_user: 296
+        ansible_password: ciscoenable
+        ansible_connection: network_cli
+        ansible_network_os: cisco.ios.ios
+        ansible_ssh_common_args: >-
+          -oKexAlgorithms=+diffie-hellman-group14-sha1
+          -oHostKeyAlgorithms=+ssh-rsa
+          -oPubkeyAcceptedAlgorithms=+ssh-rsa
