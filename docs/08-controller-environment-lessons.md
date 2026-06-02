@@ -90,7 +90,16 @@ ansible-pylibssh not installed, falling back to paramiko
 Execution still succeeded.
 
 ---
+## Dependency Validation
 
+The controller environment was validated using:
+
+```bash
+pip show paramiko
+pip show ncclient
+ansible --version
+ansible-galaxy collection list
+---
 ## Lesson Learned
 
 Controller preparation must be treated as part of the automation system, not just the host running commands.

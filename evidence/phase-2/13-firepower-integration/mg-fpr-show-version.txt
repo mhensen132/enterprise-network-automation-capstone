@@ -1,0 +1,49 @@
+MG-FPR# show version
+
+Cisco Adaptive Security Appliance Software Version 9.18(2)
+SSP Operating System Version 2.12(0.438)
+Device Manager Version 7.18(1)152
+
+Compiled on Mon 08-Aug-22 16:30 GMT by builders
+System image file is "disk0:/installables/switch/fxos-k8-fp1k-lfbff.2.12.0.438.SPA"
+Config file at boot was "startup-config"
+
+MG-FPR up 35 days 6 hours
+Start-up time 29 secs
+
+Hardware:   FPR-1010, 7148 MB RAM, CPU Atom C3000 series 2200 MHz, 1 CPU (4 cores)
+
+Encryption hardware device : Cisco FP Crypto on-board accelerator (revision 0x11)
+                             Driver version        : 4.11.0
+                             Number of accelerators: 6
+
+ 1: Int: Internal-Data0/0    : address is 00a0.c900.0000, irq 10
+ 3: Int: Not licensed        : irq 0
+ 4: Ext: Management1/1       : address is 8c94.618a.9c01, irq 0
+ 5: Int: Internal-Data1/1    : address is 0000.0100.0001, irq 0
+
+License mode: Smart Licensing
+
+Licensed features for this platform:
+Maximum Physical Interfaces       : Unlimited
+Maximum VLANs                     : 60
+Inside Hosts                      : Unlimited
+Failover                          : Disabled
+Encryption-DES                    : Enabled
+Encryption-3DES-AES               : Disabled
+Security Contexts                 : 0
+Carrier                           : Disabled
+AnyConnect Premium Peers          : 75
+AnyConnect Essentials             : Disabled
+Other VPN Peers                   : 75
+Total VPN Peers                   : 75
+AnyConnect for Mobile             : Enabled
+AnyConnect for Cisco VPN Phone    : Enabled
+Advanced Endpoint Assessment      : Enabled
+Shared License                    : Disabled
+Total TLS Proxy Sessions          : 160
+Cluster                           : Disabled
+
+Serial Number: JAD2734016D
+Configuration register is 0x1
+Configuration last modified by enable_15 at 02:24:33.321 UTC Thu May 28 2026
