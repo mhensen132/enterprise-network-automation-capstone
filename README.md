@@ -293,4 +293,27 @@ Expand this environment into a complete enterprise automation platform capable o
 * Automated validation
 * Repeatable enterprise deployments
 
+## AI Collaboration & Project Attribution
+
+This project was developed collaboratively with the assistance of **OpenAI's ChatGPT**.
+
+I designed the project around my own learning goals in infrastructure automation, Linux, Terraform, virtualization, containers, Git/GitHub, and AI-assisted operations. Throughout the project, I used ChatGPT as a technical collaborator to help me:
+
+* Design and refine the overall project architecture.
+* Break larger objectives into manageable implementation steps.
+* Explain unfamiliar technologies, commands, and infrastructure concepts.
+* Troubleshoot configuration errors and unexpected behavior.
+* Generate and review example code, scripts, configuration files, and documentation.
+* Identify security considerations and safer implementation patterns.
+* Improve the organization and presentation of the project for a technical portfolio.
+
+I do **not** represent every line of code or every technical solution in this repository as something I independently created from scratch without assistance. AI-generated suggestions were an important part of the development process.
+
+My role was to build and operate the lab environment, provide the project requirements and constraints, implement and test the proposed solutions, troubleshoot failures, make design decisions, and verify that the resulting infrastructure and automation worked in my environment.
+
+The purpose of this project is not to demonstrate that I can produce an entire infrastructure automation platform without references or assistance. It is to demonstrate my ability to **learn new technologies, work through technical problems, evaluate AI-generated solutions, implement them in a real lab environment, and understand the systems well enough to explain and defend the design decisions behind them.**
+
+AI was used as a development and learning tool—not as a substitute for hands-on implementation, testing, or understanding.
+
+
 The final objective is a unified automation platform capable of provisioning, configuring, validating, and maintaining enterprise infrastructure through code-driven workflows.
